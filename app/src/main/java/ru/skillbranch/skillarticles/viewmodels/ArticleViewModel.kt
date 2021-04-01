@@ -16,7 +16,8 @@ class ArticleViewModel(private val articleId : String) : BaseViewModel<ArticleSt
           subscribeOnDataSource(getArticleData()) { article, state ->
               article ?: return@subscribeOnDataSource null
               state.copy(
-                    shareLink = article.shareLink,
+                      shareLink = article.shareLink,
+                      author = article.author,
                       title = article.title,
                       category = article.category,
                       categoryIcon = article.categoryIcon,
@@ -74,7 +75,7 @@ class ArticleViewModel(private val articleId : String) : BaseViewModel<ArticleSt
 
         val message = if (currentState.isLike) Notify.TextMessage("Mark is liked")
                      else {
-                           Notify.ActionMessage("Don't like it anymore",
+                           Notify.ActionMessage("Don`t like it anymore",
                                    "No, still like it",
                            toggleLike)
                       }
@@ -88,7 +89,7 @@ class ArticleViewModel(private val articleId : String) : BaseViewModel<ArticleSt
     }
 
    override fun handleShare() {
-        val message = "Shere is not implimented"
+        val message = "Share is not implemented"
         notify(Notify.ErrorMessage(message, "OK", null))
     }
 
