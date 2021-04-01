@@ -86,6 +86,11 @@ class ArticleViewModel(private val articleId : String) : BaseViewModel<ArticleSt
    override fun handleBookmark() {
        val personalInfo = currentState.toArticlePersonalInfo()
        repository.updateArticlePersonalInfo(personalInfo.copy(isBookmark = !personalInfo.isBookmark))
+
+       val message = if (currentState.isBookmark) Notify.TextMessage("Add to bookmarks")
+                     else Notify.TextMessage("Remove from bookmarks")
+
+       notify(message)
     }
 
    override fun handleShare() {
