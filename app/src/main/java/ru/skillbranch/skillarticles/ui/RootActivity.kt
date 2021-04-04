@@ -1,13 +1,23 @@
 package ru.skillbranch.skillarticles.ui
 
+import android.app.SearchManager
+import android.content.Context
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+
 import android.widget.ImageView
+import android.widget.SearchView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProviders
+import androidx.transition.Visibility
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_root.*
 import kotlinx.android.synthetic.main.layout_bottombar.*
@@ -104,6 +114,7 @@ class RootActivity : AppCompatActivity() {
         toolbar.subtitle = data.category ?: "loading"
 
         if (data.categoryIcon != null) toolbar.logo = getDrawable(data.categoryIcon as Int)
+
     }
 
     private fun setupButtombar() {
@@ -153,6 +164,72 @@ class RootActivity : AppCompatActivity() {
             logo.layoutParams = it
         }
 
+    }
+
+    private lateinit var searchView: SearchView
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.search_menu, menu)
+
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+
+        searchView = (menu!!.findItem(R.id.action_search).actionView as SearchView).apply {
+            queryHint = "Search"
+        }
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                viewModel.handleSearch(query)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                 newText?.let {
+                     if (!it.equals(viewModel.currentState.searchQuery)) {
+                         viewModel.handleSearch(it)
+                     }
+                 }
+
+                return false
+            }
+
+        })
+
+        searchView.setOnSearchClickListener {
+            Toast.makeText(this, "Search click", Toast.LENGTH_SHORT).show()
+            viewModel.handleSearchMode(true)
+        }
+
+        viewModel.observeState(this) {
+
+            if (it.isSearch) {
+                searchView.onActionViewExpanded()
+
+                if (!it.searchQuery.isNullOrEmpty()) {
+                    searchView.setQuery(it.searchQuery, false)
+                }
+
+            } else {
+                searchView.onActionViewCollapsed()
+            }
+
+
+           Log.d("Query",  "${it.searchQuery}")
+        }
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        Toast.makeText(this, "Back", Toast.LENGTH_SHORT).show()
+        viewModel.handleSearchMode(false)
+
+//        searchView.query?.let {
+//            Log.d("Query", "QUERY IS ${it}")
+//            viewModel.handleSearch(it.toString())
+//        }
+
+        return true
     }
 
 }
