@@ -11,10 +11,11 @@ import android.view.MenuItem
 import android.view.View
 
 import android.widget.ImageView
-import android.widget.SearchView
+
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProviders
 import androidx.transition.Visibility
@@ -172,6 +173,7 @@ class RootActivity : AppCompatActivity() {
         val searchItem = menu!!.findItem(R.id.action_search)
        val searchView = (searchItem.actionView as SearchView).apply {
             queryHint = "Search"
+           setTheme(R.style.ArticleBarsTheme)
         }
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
