@@ -169,7 +169,8 @@ class RootActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.search_menu, menu)
 
-       val searchView = (menu!!.findItem(R.id.search_src_text).actionView as SearchView).apply {
+        val searchItem = menu!!.findItem(R.id.action_search)
+       val searchView = (searchItem.actionView as SearchView).apply {
             queryHint = "Search"
         }
 
@@ -200,6 +201,7 @@ class RootActivity : AppCompatActivity() {
 
             if (it.isSearch) {
                 searchView.onActionViewExpanded()
+                //searchItem.expandActionView()
 
                 if (!it.searchQuery.isNullOrEmpty()) {
                     searchView.setQuery(it.searchQuery, false)
