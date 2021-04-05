@@ -166,14 +166,12 @@ class RootActivity : AppCompatActivity() {
 
     }
 
-    private lateinit var searchView: SearchView
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.search_menu, menu)
 
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
 
-        searchView = (menu!!.findItem(R.id.action_search).actionView as SearchView).apply {
+       val searchView = (menu!!.findItem(R.id.action_search).actionView as SearchView).apply {
             queryHint = "Search"
         }
 
@@ -223,12 +221,6 @@ class RootActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         Toast.makeText(this, "Back", Toast.LENGTH_SHORT).show()
         viewModel.handleSearchMode(false)
-
-//        searchView.query?.let {
-//            Log.d("Query", "QUERY IS ${it}")
-//            viewModel.handleSearch(it.toString())
-//        }
-
         return true
     }
 
