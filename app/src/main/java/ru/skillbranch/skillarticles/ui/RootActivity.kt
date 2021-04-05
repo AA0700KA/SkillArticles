@@ -200,15 +200,16 @@ class RootActivity : AppCompatActivity() {
         viewModel.observeState(this) {
 
             if (it.isSearch) {
-                searchView.onActionViewExpanded()
-                //searchItem.expandActionView()
+               // searchView.onActionViewExpanded()
+                searchItem.expandActionView()
 
                 if (!it.searchQuery.isNullOrEmpty()) {
                     searchView.setQuery(it.searchQuery, false)
                 }
 
             } else {
-                searchView.onActionViewCollapsed()
+              //  searchView.onActionViewCollapsed()
+                searchItem.collapseActionView()
             }
 
 
