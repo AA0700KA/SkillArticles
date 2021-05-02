@@ -46,6 +46,7 @@ class InstrumentalTest2 {
         Assert.assertEquals("prefs testLong value after set",Long.MIN_VALUE,  pref.testLong)
 
     }
+
 }
 
 
