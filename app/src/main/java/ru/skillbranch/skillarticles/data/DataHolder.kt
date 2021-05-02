@@ -69,10 +69,10 @@ object LocalDataHolder {
 
 object NetworkDataHolder {
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    val content = MutableLiveData<List<Any>?>(null)
+    val content = MutableLiveData<List<String>?>(null)
     private var isDelay = true
 
-    fun loadArticleContent(articleId: String): LiveData<List<Any>?> {
+    fun loadArticleContent(articleId: String): LiveData<List<String>?> {
         GlobalScope.launch {
             if (isDelay) delay(1500)
             withContext(Dispatchers.Main){
@@ -102,7 +102,7 @@ data class ArticleData(
     val date: Date,
     val author: Any? = null,
     val poster: String? = null,
-    val content: List<Any> = emptyList()
+    val content: List<String> = emptyList()
 )
 
 data class ArticlePersonalInfo(

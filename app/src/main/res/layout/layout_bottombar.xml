@@ -38,6 +38,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.023" />
 
+        <ImageView
+            android:id="@+id/btn_share2"
+            style="@style/BottombarIcon"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_share_black_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_share"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.023" />
+
         <ru.skillbranch.skillarticles.ui.custom.CheckableImageView
             android:id="@+id/btn_settings"
             style="@style/BottombarIcon"
@@ -55,5 +66,76 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
+
+        <androidx.constraintlayout.widget.Group
+                android:id="@+id/bottom_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="btn_like, btn_bookmark, btn_share, btn_settings" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/color_on_article_bar"
+                android:visibility="gone"
+                android:id="@+id/reveal"
+                tools:visibility="visible"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:clickable="true"
+                    android:focusable="true"
+                    style="@style/BottombarSearchIcon"
+                    android:id="@+id/btn_search_close"
+                    android:src="@android:drawable/ic_menu_close_clear_cancel" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/btn_search_close"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_height="wrap_content"
+                    android:text="Not found"
+                    android:id="@+id/tv_search_result"
+                    android:textColor="?attr/colorPrimary"
+                    tools:textColor="@android:color/white"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="16dp" />
+
+
+                <ImageView
+                    android:id="@+id/btn_result_up"
+                    style="@style/BottombarSearchIcon"
+                    android:layout_gravity="center"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@android:drawable/arrow_up_float"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintLeft_toRightOf="@+id/search_result"
+                    app:layout_constraintRight_toLeftOf="@id/btn_result_down"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <ImageView
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/btn_result_up"
+                    style="@style/BottombarSearchIcon"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:id="@+id/btn_result_down"
+                    android:layout_gravity="center"
+                    android:src="@android:drawable/arrow_down_float" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 </merge>

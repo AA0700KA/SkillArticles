@@ -14,6 +14,7 @@ import androidx.core.animation.doOnEnd
 import androidx.core.animation.doOnStart
 import com.google.android.material.shape.MaterialShapeDrawable
 import ru.skillbranch.skillarticles.R
+import ru.skillbranch.skillarticles.databinding.LayoutSubmenuBinding
 import ru.skillbranch.skillarticles.extensions.dpToPx
 import ru.skillbranch.skillarticles.ui.custom.behaviors.SubmenuBehavior
 import kotlin.math.hypot
@@ -28,9 +29,13 @@ class ArticleSubmenu @JvmOverloads constructor(
     var isOpen = false
     private var centerX: Float = context.dpToPx(200)
     private var centerY: Float = context.dpToPx(96)
+    private var _submenuBinding : LayoutSubmenuBinding
+    val submenuBinding : LayoutSubmenuBinding
+                       get() = _submenuBinding
 
     init {
-        View.inflate(context, R.layout.layout_submenu, this)
+        val view = View.inflate(context, R.layout.layout_submenu, this)
+        _submenuBinding = LayoutSubmenuBinding.bind(view)
         //add material bg for handle elevation and color surface
         val materialBg = MaterialShapeDrawable.createWithElevationOverlay(context)
         materialBg.elevation = elevation

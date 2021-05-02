@@ -9,7 +9,6 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.math.MathUtils
 import androidx.core.view.ViewCompat
 import androidx.customview.widget.ViewDragHelper
-import kotlinx.android.synthetic.main.layout_bottombar.view.*
 import ru.skillbranch.skillarticles.R
 import ru.skillbranch.skillarticles.ui.custom.Bottombar
 
@@ -57,7 +56,7 @@ class BottombarBehavior : CoordinatorLayout.Behavior<Bottombar>() {
 
         val offset = MathUtils.clamp(child.translationY + dy, 0f, child.minHeight.toFloat())
 
-        if (child.isClose && offset != child.translationY) {
+        if (!child.isSearchMode && child.isClose && offset != child.translationY) {
             child.translationY = offset
             Log.d(TAG, "BottombarBehavior: ${dy} and ${child.translationY}")
         }
