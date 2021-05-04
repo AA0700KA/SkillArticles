@@ -4,6 +4,8 @@ import org.junit.Assert
 import org.junit.Test
 
 import org.junit.Assert.*
+import ru.skillbranch.skillarticles.data.adapters.UserJsonAdapter
+import ru.skillbranch.skillarticles.data.local.User
 import ru.skillbranch.skillarticles.extensions.indexesOf
 
 /**
@@ -35,6 +37,19 @@ class ExampleUnitTest {
 
         actualIndexes = null.indexesOf("")
         Assert.assertEquals(listOf<Int>(), actualIndexes)
+    }
+
+    @Test
+    fun testUserAdapter() {
+        val user = User("1", "Pasha")
+        val adapter = UserJsonAdapter()
+
+        val result = adapter.toJson(user)
+        println(result)
+
+        val userFromJson = adapter.fromJson(result)
+
+        println(userFromJson)
     }
 
 }
