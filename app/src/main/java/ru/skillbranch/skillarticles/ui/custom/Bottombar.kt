@@ -60,13 +60,14 @@ class Bottombar @JvmOverloads constructor(
     }
 
     fun setSearchInfo(searchCount : Int = 0, position : Int = 0) {
+        Log.d("NumberPos", "setSearchInfo: ${position}")
          with(bottombarBinding) {
              btnResultUp.isEnabled = searchCount > 0
              btnResultDown.isEnabled = searchCount > 0
 
              tvSearchResult.text =
                      if (searchCount == 0) "Not found"
-                     else "position ${position.inc()} of ${searchCount}"
+                     else "${position.inc()} of ${searchCount}"
 
              when(position) {
                  0 -> btnResultUp.isEnabled = false
