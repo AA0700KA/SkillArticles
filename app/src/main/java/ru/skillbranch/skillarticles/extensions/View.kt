@@ -11,8 +11,6 @@ import androidx.core.view.marginRight
 import androidx.core.view.marginTop
 
 fun View.setMarginOptionally(left : Int = marginLeft, top : Int = marginTop, right : Int = marginRight, bottom : Int = marginBottom) {
-    val TAG = "Margin"
-    Log.d(TAG, "setMarginOptionally: ${marginLeft} ${marginRight} ${marginTop} ${marginBottom} height/width ${height}/${width}")
     val coordinatorLayoutParams = layoutParams as CoordinatorLayout.LayoutParams
     coordinatorLayoutParams.setMargins(left, top, right, bottom)
 }
