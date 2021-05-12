@@ -468,7 +468,7 @@ private fun <T> TestObserver<T>.assertValue(
 private fun ArticleState.asMap(): Map<String, Any?> = mapOf(
     "isAuth" to isAuth,
     "isLoadingContent" to isLoadingContent,
-    "isLoadingReviews" to isLoadingReviewers,
+    "isLoadingReviews" to isLoadingReviews,
     "isLike" to isLike,
     "isBookmark" to isBookmark,
     "isShowMenu" to isShowMenu,
@@ -486,5 +486,5 @@ private fun ArticleState.asMap(): Map<String, Any?> = mapOf(
     "author" to author,
     "poster" to poster,
     "content" to content,
-    "reviews" to reviewers
+    "reviews" to reviews
 )

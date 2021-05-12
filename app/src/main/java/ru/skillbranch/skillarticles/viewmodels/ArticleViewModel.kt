@@ -163,7 +163,7 @@ class ArticleViewModel(private val articleId : String, savedStateHandle: SavedSt
 data class ArticleState(
         val isAuth : Boolean = false,
         val isLoadingContent : Boolean = true,
-        val isLoadingReviewers : Boolean = true,
+        val isLoadingReviews : Boolean = true,
         val isLike : Boolean = false,
         val isBookmark : Boolean = false,
         val isShowMenu : Boolean = false,
@@ -181,7 +181,7 @@ data class ArticleState(
         val author : Any? = null,
         val poster : String? = null,
         val content : List<String> = emptyList(),
-        val reviewers : List<Any> = emptyList()
+        val reviews : List<Any> = emptyList()
 ) : VMState {
 
     override fun toBundle(): Bundle {
@@ -199,7 +199,7 @@ data class ArticleState(
         return copy(
                 isAuth  = map["isAuth"] as Boolean,
          isLoadingContent = map["isLoadingContent"] as Boolean,
-        isLoadingReviewers  = map["isLoadingReviews"] as Boolean,
+        isLoadingReviews  = map["isLoadingReviews"] as Boolean,
         isLike = map["isLike"] as Boolean,
         isBookmark  = map["isBookmark"] as Boolean,
         isShowMenu = map[ "isShowMenu"] as Boolean,
@@ -217,7 +217,7 @@ data class ArticleState(
        author = map["author"] as Any?,
        poster = map["poster"] as String?,
         content = map[ "content"] as List<String>,
-        reviewers =  map["reviews"] as List<Any>
+        reviews =  map["reviews"] as List<Any>
         )
     }
 

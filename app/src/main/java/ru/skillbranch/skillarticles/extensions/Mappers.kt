@@ -16,7 +16,7 @@ fun ArticleState.toArticlePersonalInfo(): ArticlePersonalInfo {
 fun ArticleState.asMap(): Map<String, Any?> = mapOf(
         "isAuth" to isAuth,
         "isLoadingContent" to isLoadingContent,
-        "isLoadingReviews" to isLoadingReviewers,
+        "isLoadingReviews" to isLoadingReviews,
         "isLike" to isLike,
         "isBookmark" to isBookmark,
         "isShowMenu" to isShowMenu,
@@ -34,7 +34,7 @@ fun ArticleState.asMap(): Map<String, Any?> = mapOf(
         "author" to author,
         "poster" to poster,
         "content" to content,
-        "reviews" to reviewers
+        "reviews" to reviews
 )
 
 fun User.asMap(): Map<String, Any?> = mapOf(
