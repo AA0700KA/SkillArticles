@@ -174,6 +174,10 @@ class UnitTest {
             .filterIsInstance<Element.Image>()
             .map{it.alt}
 
+        printResults(actual)
+        println()
+        printElements(result.elements)
+
         assertEquals(expectedImages["titles"], actual)
         assertEquals(expectedImages["alts"], actualAlts)
         assertEquals(expectedImages["links"], actualLink)

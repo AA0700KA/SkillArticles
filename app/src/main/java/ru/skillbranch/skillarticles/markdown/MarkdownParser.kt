@@ -178,17 +178,18 @@ object MarkdownParser {
 
                 10 -> {
                     text = string.subSequence(startIndex, endIndex)
+                    val resultArray = text.split("[\\[\\]\\)\\(]".toRegex())
+                    println(resultArray)
                     println("Group $group and Text = $text")
+                    val url = resultArray[3].split(" ")[0]
+                    val alt = if (!resultArray[1].isEmpty()) resultArray[1] else null
+                    println("Result 3 ${resultArray[3]} and split ${resultArray[3].split(" ")}")
 
-                    val any = try {
-                        "\\[(.*)]\\((.*)\"(.*)?\"\\)".toRegex().find(text)!!.destructured
-                    } catch (e: KotlinNullPointerException) {
-                        "\\[(.*)]\\((.*)\\)".toRegex().find(text)!!.destructured
-                    }
+                    val title  = if (resultArray[3].split(" ").size > 1)
+                        "\"(.*)\"".toRegex().find(resultArray[3])!!.destructured.toList()[0]
+                    else ""
 
-                    val dataList = any.toList()
-
-                    val element = Element.Image(dataList[1].trim(), if (dataList[0].isEmpty()) null else dataList[0], if (dataList.size == 3) dataList[2] else "")
+                    val element = Element.Image(url, alt, title)
                     println("Group $group and Text = ${element.text}")
                     parents.add(element)
                     lastStartIndex = endIndex
