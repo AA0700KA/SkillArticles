@@ -60,7 +60,7 @@ class ArticleViewModel(private val articleId : String, savedStateHandle: SavedSt
 
     }
 
-    override fun getArticleContent() : LiveData<List<String>?> {
+    override fun getArticleContent() : LiveData<String?> {
         return repository.loadArticleContent(articleId)
     }
 
@@ -126,7 +126,7 @@ class ArticleViewModel(private val articleId : String, savedStateHandle: SavedSt
 
         Log.d("Query", "handleSearch: ${query} ")
 
-        val result = currentState.content.firstOrNull().indexesOf(query)
+        val result = currentState.content.indexesOf(query)
                 .map { it to it + query.length }
 
         updateState {
@@ -180,12 +180,12 @@ data class ArticleState(
         val date : String? = null,
         val author : Any? = null,
         val poster : String? = null,
-        val content : List<String> = emptyList(),
+        val content : String = "Loading",
         val reviews : List<Any> = emptyList()
 ) : VMState {
 
     override fun toBundle(): Bundle {
-        val map = copy(content = emptyList(), isLoadingContent = true)
+        val map = copy(content = "Loading", isLoadingContent = true)
                 .asMap()
                 .toList()
                 .toTypedArray()
@@ -216,7 +216,7 @@ data class ArticleState(
          date  = map["date"] as String?,
        author = map["author"] as Any?,
        poster = map["poster"] as String?,
-        content = map[ "content"] as List<String>,
+        content = map[ "content"] as String,
         reviews =  map["reviews"] as List<Any>
         )
     }

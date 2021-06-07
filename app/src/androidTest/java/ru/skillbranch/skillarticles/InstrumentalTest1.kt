@@ -201,7 +201,7 @@ class InstrumentedTest1 {
         scenario.onActivity { activity ->
             activity.renderUi(
                 ArticleState(
-                    content = listOf(content),
+                    content = content,
                     isBigText = true,
                     isLoadingContent = false,
                     title = "test title",
@@ -248,7 +248,7 @@ class InstrumentedTest1 {
     @UiThreadTest
     fun module5() {
         val initialState =
-            ArticleState(isLoadingContent = false, content = listOf(content), isShowMenu = true, isSearch = false)
+            ArticleState(isLoadingContent = false, content = content, isShowMenu = true, isSearch = false)
         val vm = ArticleViewModel("0", SavedStateHandle())
 
         vm.state.value = initialState

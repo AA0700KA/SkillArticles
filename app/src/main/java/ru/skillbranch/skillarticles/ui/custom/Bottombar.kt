@@ -52,7 +52,7 @@ class Bottombar @JvmOverloads constructor(
 
     override fun onRestoreInstanceState(state: Parcelable?) {
         super.onRestoreInstanceState(state)
-        if(state is SavedState){
+        if(state is SavedState) {
             isSearchMode = state.ssIsSearchMode
             bottombarBinding.reveal.isVisible = isSearchMode
             bottombarBinding.bottomGroup.isVisible = !isSearchMode
@@ -94,7 +94,7 @@ class Bottombar @JvmOverloads constructor(
     private fun animateShowSearch() {
         bottombarBinding.reveal.isVisible = true
 
-        val endRadius = hypot(width.toDouble(), height.toDouble() / 2)
+        val endRadius = hypot(width.toDouble(), height.toDouble() / 2 )
 
         val va = ViewAnimationUtils.createCircularReveal(
             bottombarBinding.reveal,
@@ -114,7 +114,7 @@ class Bottombar @JvmOverloads constructor(
     private fun animateHideSearch() {
         bottombarBinding.bottomGroup.isVisible = true
 
-        val endRadius = hypot(width.toDouble(), height.toDouble() / 2)
+        val endRadius = hypot(width.toDouble(), height.toDouble() / 2 )
 
         val va = ViewAnimationUtils.createCircularReveal(
             bottombarBinding.reveal,

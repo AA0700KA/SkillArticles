@@ -1,17 +1,25 @@
 package ru.skillbranch.skillarticles.extensions
 
 import android.content.Context
+import android.content.res.Resources
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.util.TypedValue
+import androidx.annotation.AttrRes
 
-fun Context.dpToPx(dp: Int): Float {
+fun Context.dpToPx(dp : Int): Float {
     return TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_DIP,
         dp.toFloat(),
         this.resources.displayMetrics
     )
+}
+
+fun Context.attrValue(@AttrRes color : Int) : Int {
+      val typedValue = TypedValue()
+      if (theme.resolveAttribute(color, typedValue, true)) return typedValue.data
+      else throw Resources.NotFoundException("Not found attribute with $color ID")
 }
 
 fun Context.dpToIntPx(dp: Int): Int {

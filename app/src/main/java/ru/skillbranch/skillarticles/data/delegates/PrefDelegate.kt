@@ -57,4 +57,5 @@ class PrefDelegate<T>(private val defaultValue : T, private val customKey : Stri
                 is String -> stringPreferencesKey(name)
                 else -> error("this type can't be stored into Preferences")
             }.run { this as Preferences.Key<T> }
+
 }

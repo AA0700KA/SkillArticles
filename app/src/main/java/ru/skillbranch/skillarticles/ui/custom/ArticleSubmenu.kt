@@ -1,13 +1,11 @@
 package ru.skillbranch.skillarticles.ui.custom
 
 import android.content.Context
-import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewAnimationUtils
-import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.animation.doOnEnd

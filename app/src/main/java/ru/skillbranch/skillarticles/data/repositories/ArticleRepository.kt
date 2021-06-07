@@ -9,7 +9,7 @@ object ArticleRepository {
     private val network = NetworkDataHolder
     private val prefs = PrefManager()
 
-    fun loadArticleContent(articleId: String): LiveData<List<String>?> {
+    fun loadArticleContent(articleId: String): LiveData<String?> {
         return network.loadArticleContent(articleId) //5s delay from network
     }
     fun getArticle(articleId: String): LiveData<ArticleData?> {
