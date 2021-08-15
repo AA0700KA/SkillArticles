@@ -11,6 +11,7 @@ import ru.skillbranch.skillarticles.data.ArticleData
 import ru.skillbranch.skillarticles.data.ArticlePersonalInfo
 import ru.skillbranch.skillarticles.data.repositories.ArticleRepository
 import ru.skillbranch.skillarticles.extensions.*
+import ru.skillbranch.skillarticles.markdown.MarkdownParser
 
 import java.io.Serializable
 
@@ -126,7 +127,9 @@ class ArticleViewModel(private val articleId : String, savedStateHandle: SavedSt
 
         Log.d("Query", "handleSearch: ${query} ")
 
-        val result = currentState.content.indexesOf(query)
+        val resultString = MarkdownParser.clear(currentState.content)
+
+        val result = resultString.indexesOf(query)
                 .map { it to it + query.length }
 
         updateState {

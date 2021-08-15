@@ -19,7 +19,7 @@ class BottombarBehavior : CoordinatorLayout.Behavior<Bottombar>() {
     private var topbound = 0
     private var bottombound = 0
     private var interceptorEvents = false
-    lateinit var dragHelper: ViewDragHelper
+    private lateinit var dragHelper: ViewDragHelper
 
     override fun onLayoutChild(parent: CoordinatorLayout, child: Bottombar, layoutDirection: Int): Boolean {
         parent.onLayoutChild(child, layoutDirection)
