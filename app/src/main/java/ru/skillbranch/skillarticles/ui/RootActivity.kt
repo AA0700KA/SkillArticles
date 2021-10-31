@@ -6,10 +6,11 @@ import android.text.Selection
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.method.LinkMovementMethod
-import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import ru.skillbranch.skillarticles.ui.custom.spans.SearchFocusSpan
+import ru.skillbranch.skillarticles.ui.custom.spans.SearchSpan
 
 import android.widget.ImageView
 import android.widget.TextView
@@ -30,10 +31,8 @@ import ru.skillbranch.skillarticles.databinding.LayoutBottombarBinding
 import ru.skillbranch.skillarticles.databinding.LayoutSubmenuBinding
 import ru.skillbranch.skillarticles.extensions.dpToIntPx
 import ru.skillbranch.skillarticles.extensions.setMarginOptionally
-import ru.skillbranch.skillarticles.markdown.MarkdownBuilder
-import ru.skillbranch.skillarticles.markdown.MarkdownText
-import ru.skillbranch.skillarticles.ui.custom.SearchFocusSpan
-import ru.skillbranch.skillarticles.ui.custom.SearchSpan
+import ru.skillbranch.skillarticles.ui.custom.markdown.MarkdownBuilder
+
 import ru.skillbranch.skillarticles.ui.delegates.AttrValue
 import ru.skillbranch.skillarticles.ui.delegates.viewBinding
 import ru.skillbranch.skillarticles.viewmodels.*
@@ -128,13 +127,8 @@ class RootActivity : AppCompatActivity(), IArticleView {
 
         with(vb.tvTextContent) {
             textSize = if (data.isBigText) 18f else 14f
-            movementMethod = LinkMovementMethod()
-//            val content = if (data.isLoadingContent)  "loading" else data.content
-//            if (text.toString() == content) return@with
-//            setText(content, TextView.BufferType.SPANNABLE)
-            MarkdownBuilder(context)
-                    .mardownToSpan(data.content)
-                    .run { setText(this, TextView.BufferType.SPANNABLE) }
+            isLoading = data.content.isEmpty()
+            setContent(data.content)
         }
 
         with(vb.toolbar) {
@@ -149,59 +143,64 @@ class RootActivity : AppCompatActivity(), IArticleView {
 
         if (data.isSearch) {
              renderSearchResult(data.searchResults)
-             renderSearchPosition(data.searchPosition)
+             renderSearchPosition(data.searchPosition, data.searchResults)
         } else clearSearchResult()
 
     }
 
     override fun renderSearchResult(searchResult: List<Pair<Int, Int>>) {
 
-        val content = vb.tvTextContent.text as Spannable
+        vb.tvTextContent.renderSearchResult(searchResult)
 
-        clearSearchResult()
-
-        searchResult.forEach {(start, end)  ->
-            content.setSpan(
-                    SearchSpan(bgColor, fgColor),
-                    start,
-                    end,
-                    SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-
-        }
+//        val content = vb.tvTextContent.text as Spannable
+//
+//        clearSearchResult()
+//
+//        searchResult.forEach {(start, end)  ->
+//            content.setSpan(
+//                    SearchSpan(),
+//                    start,
+//                    end,
+//                    SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+//            )
+//
+//        }
     }
 
-    override fun renderSearchPosition(searchPosition: Int) {
-        val content = vb.tvTextContent.text as Spannable
+    override fun renderSearchPosition(searchPosition: Int, searchResult : List<Pair<Int, Int>>) {
 
-        val spans = content.getSpans<SearchSpan>()
-
-        content.getSpans<SearchFocusSpan>()
-                .forEach {
-                    content.removeSpan(it)
-                }
-
-        if (spans.isNotEmpty()) {
-            val result = spans[searchPosition]
-
-            Selection.setSelection(content, content.getSpanStart(result))
-
-            content.setSpan(
-                    SearchFocusSpan(bgColor, fgColor),
-                    content.getSpanStart(result),
-                    content.getSpanEnd(result),
-                    SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-
-        }
+      //  vb.tvTextContent.renderSearchPosition(searchPosition)
+//        val content = vb.tvTextContent.text as Spannable
+//
+//        val spans = content.getSpans<SearchSpan>()
+//
+//        content.getSpans<SearchFocusSpan>()
+//                .forEach {
+//                    content.removeSpan(it)
+//                }
+//
+//        if (spans.isNotEmpty()) {
+//            val result = spans[searchPosition]
+//
+//            Selection.setSelection(content, content.getSpanStart(result))
+//
+//            content.setSpan(
+//                    SearchFocusSpan(),
+//                    content.getSpanStart(result),
+//                    content.getSpanEnd(result),
+//                    SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+//            )
+//
+//        }
     }
 
     override fun clearSearchResult() {
-        val content = vb.tvTextContent.text as Spannable
-        content.getSpans<SearchSpan>()
-                .forEach {
-                     content.removeSpan(it)
-                }
+     //   vb.tvTextContent.clearSearchResult()
+//        val content = vb.tvTextContent.text as Spannable
+//        content.getSpans<SearchSpan>()
+//                .forEach {
+//                     content.removeSpan(it)
+//                }
     }
 
     override fun showSearchBar(resultsCount: Int, searchPosition: Int) {

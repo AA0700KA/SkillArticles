@@ -1,4 +1,4 @@
-package ru.skillbranch.skillarticles.markdown
+package ru.skillbranch.skillarticles.ui.custom.markdown
 
 import android.content.Context
 import android.graphics.Typeface
@@ -13,7 +13,10 @@ import androidx.core.text.inSpans
 import ru.skillbranch.skillarticles.R
 import ru.skillbranch.skillarticles.extensions.attrValue
 import ru.skillbranch.skillarticles.extensions.dpToPx
-import ru.skillbranch.skillarticles.markdown.spans.*
+import ru.skillbranch.skillarticles.data.repositories.Element
+import ru.skillbranch.skillarticles.data.repositories.MarkdownElement
+import ru.skillbranch.skillarticles.data.repositories.MarkdownParser
+import ru.skillbranch.skillarticles.ui.custom.spans.*
 
 class MarkdownBuilder(context : Context) {
 
@@ -32,10 +35,10 @@ class MarkdownBuilder(context : Context) {
     private val strikeWidth = context.dpToPx(4)
     private val linkIcon = ContextCompat.getDrawable(context, R.drawable.ic_baseline_link)!!
 
-    fun mardownToSpan(string : String) : SpannedString {
-        val markdown = MarkdownParser.parse(string)
+    fun mardownToSpan(markdownText : MarkdownElement.Text) : SpannedString {
+      //  val markdown = MarkdownParser.parse(string)
         return buildSpannedString {
-            markdown.elements.forEach {
+            markdownText.elements.forEach {
                 buildElement(it, this)
             }
         }

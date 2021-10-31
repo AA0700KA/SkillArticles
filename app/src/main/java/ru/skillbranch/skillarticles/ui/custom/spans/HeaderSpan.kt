@@ -1,4 +1,4 @@
-package ru.skillbranch.skillarticles.markdown.spans
+package ru.skillbranch.skillarticles.ui.custom.spans
 
 import android.graphics.Canvas
 import android.graphics.Paint
@@ -29,6 +29,11 @@ class HeaderSpan constructor(
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     val linePadding = 0.4f
     private var originAscent = 0
+
+    var topExtraPadding = 0
+    var bottomExtraPadding = 0
+    lateinit var firstLineBounds : kotlin.ranges.IntRange
+    lateinit var lastLineBounds : kotlin.ranges.IntRange
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     val sizes = mapOf(
@@ -72,13 +77,18 @@ class HeaderSpan constructor(
         if (spanStart == start) {
             originAscent = fm.ascent
             fm.ascent = (fm.ascent - marginTop).toInt()
+            topExtraPadding = marginTop.toInt()
+            firstLineBounds = start..end.dec()
         } else {
             fm.ascent = originAscent
         }
 
         if (spanEnd == end.dec()) {
+            val originalDescent = fm.descent
             val originHeight = fm.descent - originAscent
             fm.descent = (originHeight * linePadding + marginBottom).toInt()
+            bottomExtraPadding = fm.descent - originalDescent
+            lastLineBounds = start..end.dec()
         }
 
         fm.top = fm.ascent
