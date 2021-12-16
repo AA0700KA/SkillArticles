@@ -145,6 +145,10 @@ class ArticleViewModel(private val articleId : String, savedStateHandle: SavedSt
         updateState { it.copy(searchPosition = it.searchPosition.inc()) }
     }
 
+    override fun handleCopyCode() {
+        notify(Notify.TextMessage("Code copy to clipboard"))
+    }
+
     override fun handleUpText() {
         repository.updateSettings(currentState.toAppSettings().copy(isBigText = true))
     }

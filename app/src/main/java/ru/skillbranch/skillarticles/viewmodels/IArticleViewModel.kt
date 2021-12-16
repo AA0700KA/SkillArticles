@@ -86,4 +86,6 @@ interface IArticleViewModel {
 
     fun handleDownResult()
 
+    fun handleCopyCode()
+
 }

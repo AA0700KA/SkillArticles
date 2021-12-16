@@ -29,4 +29,6 @@ interface IArticleView {
 
     fun setupToolbar()
 
+    fun setupCopyListener()
+
 }

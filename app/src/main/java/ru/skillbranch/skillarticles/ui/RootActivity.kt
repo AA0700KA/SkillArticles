@@ -1,5 +1,8 @@
 package ru.skillbranch.skillarticles.ui
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Selection
@@ -65,6 +68,7 @@ class RootActivity : AppCompatActivity(), IArticleView {
         setupToolbar()
         setupBottombar()
         setupSubmenu()
+        setupCopyListener()
 
         viewModel.observeState(this, ::renderUi)
 
@@ -92,9 +96,6 @@ class RootActivity : AppCompatActivity(), IArticleView {
 
 
         when (notify) {
-           is Notify.TextMessage -> {
-
-           }
             is Notify.ActionMessage -> {
                 snackbar.setTextColor(getColor(R.color.color_accent_dark))
                 snackbar.setAction(notify.actionLabel) {
@@ -396,6 +397,15 @@ class RootActivity : AppCompatActivity(), IArticleView {
 
         if (data.isShowMenu) vb.submenu.open() else vb.submenu.close()
 
+    }
+
+    override fun setupCopyListener() {
+        vb.tvTextContent.setCopyListener { copy ->
+            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("Copied code", copy)
+            clipboard.setPrimaryClip(clip)
+            viewModel.handleCopyCode()
+        }
     }
 
 }

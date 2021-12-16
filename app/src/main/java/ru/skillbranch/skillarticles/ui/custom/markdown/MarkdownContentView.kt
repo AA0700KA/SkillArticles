@@ -18,6 +18,7 @@ class MarkdownContentView @JvmOverloads constructor(
         defStyleAttr : Int = 0
 ) : ViewGroup(context, attrs, defStyleAttr) {
 
+    private lateinit var copyListener: (String) -> Unit
     private var elements : List<MarkdownElement> = emptyList()
     private var ids = arrayListOf<Int>()
 
@@ -109,7 +110,14 @@ class MarkdownContentView @JvmOverloads constructor(
                 }
 
                 is MarkdownElement.Scroll -> {
+                    val sv = MarkdownCodeView(
+                        context,
+                        textSize,
+                        it.blockCode.text
+                    )
 
+                    sv.copyListener = copyListener
+                    addView(sv)
                 }
 
             }
@@ -159,6 +167,10 @@ class MarkdownContentView @JvmOverloads constructor(
             view as IMarkdownView
             view.clearSearchResult()
         }
+    }
+
+    fun setCopyListener(listener : (String) -> Unit) {
+        copyListener = listener
     }
 
 }

@@ -51,7 +51,7 @@ class MarkdownTextView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         if (text is Spanned && layout != null) {
-            canvas.withTranslation (totalPaddingLeft.toFloat(), totalPaddingRight.toFloat()) {
+            canvas.withTranslation (totalPaddingLeft.toFloat(), totalPaddingRight.toFloat()  - 10f) {
                 searchBgHelper.draw(canvas, text as Spanned, layout)
             }
         }
