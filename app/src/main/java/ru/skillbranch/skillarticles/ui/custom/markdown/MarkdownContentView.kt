@@ -119,8 +119,62 @@ class MarkdownContentView @JvmOverloads constructor(
     }
 
     fun renderSearchResult(searchResult : List<Pair<Int, Int>>) {
+
+        children.forEach { view ->
+            view as IMarkdownView
+            view.clearSearchResult()
+        }
+
+        if (searchResult.isEmpty()) return
+
+
         val bounds = elements.map { it.bounds }
+        val groups = searchResult.groupByBounds(bounds)
+
+        children.forEachIndexed { index, view ->
+            view as IMarkdownView
+            view.renderSearchResult(groups[index], elements[index].offset)
+        }
 
     }
+
+    fun renderSearchPosition(searchPosition : Pair<Int, Int>?) {
+        searchPosition ?: return
+        val bounds = elements.map { it.bounds }
+
+        val index = bounds.indexOfFirst { (start, end) ->
+              val boundRange = start..end
+              val (startPos, endPos) = searchPosition
+              startPos in boundRange && endPos in boundRange
+        }
+
+        if (index == -1) return
+        val view = getChildAt(index)
+        view as IMarkdownView
+        view.renderSearchPosition(searchPosition, elements[index].offset)
+    }
+
+    fun clearSearchResult() {
+        children.forEach { view ->
+            view as IMarkdownView
+            view.clearSearchResult()
+        }
+    }
+
+}
+
+private fun  List<Pair<Int, Int>>.groupByBounds(bounds: List<Pair<Int, Int>>): List<List<Pair<Int, Int>>> {
+
+    val result = mutableListOf<List<Pair<Int, Int>>>()
+
+    bounds.forEach { (startBound, endBound) ->
+        val boundRange = startBound..endBound
+        val searchBounds = filter { (startSearching, endSearching) ->
+            startSearching in boundRange && endSearching in boundRange
+        }
+        result.add(searchBounds)
+    }
+
+    return result
 
 }

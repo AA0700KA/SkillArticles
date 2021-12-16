@@ -169,7 +169,7 @@ class RootActivity : AppCompatActivity(), IArticleView {
 
     override fun renderSearchPosition(searchPosition: Int, searchResult : List<Pair<Int, Int>>) {
 
-      //  vb.tvTextContent.renderSearchPosition(searchPosition)
+        vb.tvTextContent.renderSearchPosition(searchResult.getOrNull(searchPosition))
 //        val content = vb.tvTextContent.text as Spannable
 //
 //        val spans = content.getSpans<SearchSpan>()
@@ -195,7 +195,7 @@ class RootActivity : AppCompatActivity(), IArticleView {
     }
 
     override fun clearSearchResult() {
-     //   vb.tvTextContent.clearSearchResult()
+       vb.tvTextContent.clearSearchResult()
 //        val content = vb.tvTextContent.text as Spannable
 //        content.getSpans<SearchSpan>()
 //                .forEach {
